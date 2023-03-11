@@ -35,8 +35,8 @@ public class TuitionManagerController {
     @FXML
     private ToggleGroup major, isResident, state, homeplace;
 
-    public static final String [] STUDENTTYPE = new String [] {"Resident", "Tri-State",
-            "International", "Non-Resident"};
+    public static final String [] STUDENTTYPE = new String [] {"Resident", "Tri-State", "International",
+            "Non-Resident"};
     private static Roster studentRoster = new Roster();
     private static Enrollment studentEnrollment = new Enrollment();
 
