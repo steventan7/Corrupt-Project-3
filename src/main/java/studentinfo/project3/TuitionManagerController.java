@@ -40,6 +40,10 @@ public class TuitionManagerController {
     private static Roster studentRoster = new Roster();
     private static Enrollment studentEnrollment = new Enrollment();
 
+    /**
+     * Adds a student to studentRoster when the user clicks on the "Add" button if the user has appropriately filled
+     * the specified data fields
+     */
     @FXML
     void add(ActionEvent event) {
         try {
@@ -59,11 +63,19 @@ public class TuitionManagerController {
         }
     }
 
+    /**
+     * Removes the specified student from studentRoster when the user clicks on the "Remove" button
+     * If the student is not found or the specified details are incorrect, an error message appears
+     */
     @FXML
     void remove(ActionEvent event) {
 
     }
 
+    /**
+     * Checks if the Resident or NonResident buttons has been selected. If the Resident button is selected, the
+     * buttons relating to Non-Resident students are disabled
+     */
     @FXML
     void checkIfResident(ActionEvent event) {
         RadioButton selectedRadioButton = (RadioButton) isResident.getSelectedToggle();
@@ -82,6 +94,10 @@ public class TuitionManagerController {
         }
     }
 
+    /**
+     * Checks if the Tri-State or International button has been selected. If the Tri-State button is selected, the
+     * Study Abroad button is disabled. If the International button is selected, the NY and CT buttons are disabled.
+     */
     @FXML
     void checkIfTriStateOrInternational(ActionEvent event) {
         RadioButton selectedRadioButton = (RadioButton) homeplace.getSelectedToggle();
@@ -96,12 +112,20 @@ public class TuitionManagerController {
         }
     }
 
+    /**
+     * Used to give the Student's birthDate in the proper mm/day/year format
+     * @return a string representation of the birthDate
+     */
     private String birthDate() {
         String[] date = dob1.getValue().toString().split("-");
         String birthDate = date[1] + "/" + date[2] + "/" + date[0];
         return birthDate;
     }
 
+    /**
+     * Creates a Resident object, and adds it to the student roster if the student's
+     * profile is not in the roster.
+     */
     private void addResident() {
         Student student = new Resident(new Profile(firstname.getText(), lastname.getText(), birthDate()),
                 Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
@@ -109,6 +133,10 @@ public class TuitionManagerController {
         studentRoster.add(student);
     }
 
+    /**
+     * Creates an International object, and adds it to the student roster if the student's
+     * profile is not in the roster.
+     */
     private void addInternational() {
 //        Student student = new International(new Profile(firstname.getText(), lastname.getText(), birthDate()),
 //                Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
@@ -116,6 +144,10 @@ public class TuitionManagerController {
 //        studentRoster.add(student);
     }
 
+    /**
+     * Creates a NonResident object, and adds it to the student roster if the student's
+     * profile is not in the roster.
+     */
     private void addNonResident() {
         Student student = new NonResident(new Profile(firstname.getText(), lastname.getText(), birthDate()),
                 Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
@@ -123,6 +155,10 @@ public class TuitionManagerController {
         studentRoster.add(student);
     }
 
+    /**
+     * Creates a TriState object, and adds it to the student roster if the student's
+     * profile is not in the roster.
+     */
     private void addTriState() {
         Student student = new TriState(new Profile(firstname.getText(), lastname.getText(), birthDate()),
                 Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),

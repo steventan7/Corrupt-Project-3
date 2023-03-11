@@ -1,7 +1,6 @@
 module studentinfo.project3 {
     requires javafx.controls;
     requires javafx.fxml;
-    requires org.testng;
     requires junit;
 
 
