@@ -48,7 +48,7 @@
                         <Label prefHeight="19.0" prefWidth="59.0" text="Last Name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <TextField fx:id="lastname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label layoutX="83.0" layoutY="72.0" prefHeight="19.0" prefWidth="76.0" text="Date of Birth" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <DatePicker prefHeight="26.0" prefWidth="546.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="dob1" prefHeight="26.0" prefWidth="546.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Major" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                         <GridPane prefHeight="48.0" prefWidth="482.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                            <columnConstraints>
@@ -93,9 +93,9 @@
                                  <toggleGroup>
                                     <ToggleGroup fx:id="isResident" />
                                  </toggleGroup></RadioButton>
-                              <RadioButton fx:id="tristate" mnemonicParsing="false" text="Tri-State" GridPane.columnIndex="1">
+                              <RadioButton fx:id="tristate" mnemonicParsing="false" onAction="#checkIfTriStateOrInternational" text="Tri-State" GridPane.columnIndex="1">
                                  <toggleGroup>
-                                    <ToggleGroup fx:id="location" />
+                                    <ToggleGroup fx:id="homeplace" />
                                  </toggleGroup>
                               </RadioButton>
                               <RadioButton fx:id="ny" mnemonicParsing="false" text="NY" GridPane.columnIndex="2">
@@ -117,7 +117,7 @@
                           </rowConstraints>
                            <children>
                               <RadioButton fx:id="nonresident" mnemonicParsing="false" onAction="#checkIfResident" text="Non-Resident" toggleGroup="$isResident" />
-                              <RadioButton fx:id="international" mnemonicParsing="false" text="International" toggleGroup="$location" GridPane.columnIndex="1" />
+                              <RadioButton fx:id="international" mnemonicParsing="false" onAction="#checkIfTriStateOrInternational" text="International" toggleGroup="$homeplace" GridPane.columnIndex="1" />
                               <CheckBox fx:id="studyabroad" mnemonicParsing="false" text="Study-Abroad" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
@@ -184,7 +184,7 @@
                         <TextField GridPane.columnIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <DatePicker prefHeight="0.0" prefWidth="606.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="dob2" prefHeight="0.0" prefWidth="606.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <GridPane maxWidth="350.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
