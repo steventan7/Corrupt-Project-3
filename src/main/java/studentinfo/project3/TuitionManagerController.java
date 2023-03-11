@@ -30,45 +30,33 @@ public class TuitionManagerController {
     private TextArea output;
 
     @FXML
-    private DatePicker dob;
+    private DatePicker dob1;
 
     @FXML
-    private ToggleGroup major, isResident;
+    private ToggleGroup major, isResident, state, homeplace;
 
-    public static final String [] STUDENTTYPE = new String [] {"Resident", "Tri-state",
-            "International student", "Non-Resident"};
-
-    Roster studentRoster = new Roster();
-    Enrollment studentEnrollment = new Enrollment();
+    public static final String [] STUDENTTYPE = new String [] {"Resident", "Tri-State",
+            "International", "Non-Resident"};
+    private static Roster studentRoster = new Roster();
+    private static Enrollment studentEnrollment = new Enrollment();
 
     @FXML
     void add(ActionEvent event) {
         try {
-            RadioButton selectedRadioButton = (RadioButton) major.getSelectedToggle();
-            Student student = new Resident(new Profile(firstname.getText(), lastname.getText(), birthDate()),
-                    Major.valueOf((selectedRadioButton).getText()), Integer.parseInt(creditscompleted.getText()), 0);
-            studentRoster.add(student);
-        }
-        catch (NumberFormatException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Invalid Data");
-            alert.setHeaderText("Non-numeric data has been entered.");
-            alert.setContentText("Please enter an integer.");
-            alert.showAndWait();
+            String typeOfStudent = ((RadioButton) isResident.getSelectedToggle()).getText();
+            if (typeOfStudent.equals("Resident")) {
+                addResident();
+            } else {
+
+            }
         }
         catch (Exception e) {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("You suck");
-            alert.setHeaderText("Non-numeric rizz has been entered.");
-            alert.setContentText("Please");
+            alert.setTitle("Invalid data input");
+            alert.setHeaderText("Please ensure that all inputs are valid.");
+            alert.setContentText("Please enter proper input.");
             alert.showAndWait();
         }
-    }
-
-    private String birthDate() {
-        String[] date = dob.getValue().toString().split("-");
-        String birthDate = date[1] + "/" + date[2] + "/" + date[0];
-        return birthDate;
     }
 
     @FXML
@@ -94,15 +82,51 @@ public class TuitionManagerController {
         }
     }
 
-//    @FXML
-//    void checkIfTriStateOrInternational(ActionEvent event) {
-//        RadioButton selectedRadioButton = (RadioButton) location.getSelectedToggle();
-//        if((selectedRadioButton).getText().equals("Tri-State")) {
-//            studyabroad.setDisable(false);
-//            international.setDisable(false);
-//        } else {
-//            studyabroad.setDisable(true);
-//            international.setDisable(true);
-//        }
-//    }
+    @FXML
+    void checkIfTriStateOrInternational(ActionEvent event) {
+        RadioButton selectedRadioButton = (RadioButton) homeplace.getSelectedToggle();
+        if((selectedRadioButton).getText().equals("Tri-State")) {
+            studyabroad.setDisable(true);
+            ct.setDisable(false);
+            ny.setDisable(false);
+        } else {
+            studyabroad.setDisable(false);
+            ct.setDisable(true);
+            ny.setDisable(true);
+        }
+    }
+
+    private String birthDate() {
+        String[] date = dob1.getValue().toString().split("-");
+        String birthDate = date[1] + "/" + date[2] + "/" + date[0];
+        return birthDate;
+    }
+
+    private void addResident() {
+        Student student = new Resident(new Profile(firstname.getText(), lastname.getText(), birthDate()),
+                Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
+                Integer.parseInt(creditscompleted.getText()), 0);
+        studentRoster.add(student);
+    }
+
+    private void addInternational() {
+//        Student student = new International(new Profile(firstname.getText(), lastname.getText(), birthDate()),
+//                Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
+//                Integer.parseInt(creditscompleted.getText()), studyabroad.);
+//        studentRoster.add(student);
+    }
+
+    private void addNonResident() {
+        Student student = new NonResident(new Profile(firstname.getText(), lastname.getText(), birthDate()),
+                Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
+                Integer.parseInt(creditscompleted.getText()));
+        studentRoster.add(student);
+    }
+
+    private void addTriState() {
+        Student student = new TriState(new Profile(firstname.getText(), lastname.getText(), birthDate()),
+                Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
+                Integer.parseInt(creditscompleted.getText()), ((RadioButton) state.getSelectedToggle()).getText());
+        studentRoster.add(student);
+    }
 }
