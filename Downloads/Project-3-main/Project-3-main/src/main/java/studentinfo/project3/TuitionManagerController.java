@@ -110,6 +110,7 @@ public class TuitionManagerController {
     }
 
     private void addInternational() {
+
 //        Student student = new International(new Profile(firstname.getText(), lastname.getText(), birthDate()),
 //                Major.valueOf(((RadioButton) major.getSelectedToggle()).getText()),
 //                Integer.parseInt(creditscompleted.getText()), studyabroad.);
